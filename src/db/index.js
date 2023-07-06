@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const shoeschema= new mongoose.Schema({
+const shoeSchema= new mongoose.Schema({
     
     title: {type: String},
     image: {type: String},
@@ -8,12 +8,34 @@ const shoeschema= new mongoose.Schema({
 
 })
 
-const shoe= mongoose.model('shoe', shoeschema)
+const Shoe= mongoose.model('shoe', shoeSchema)
 
 const getShoe= ()=>{
-    return shoe.find()
+    return Shoe.find()
+
+}
+
+const createShoe= (values)=>{
+    
+    return new Shoe(values).save()
+    .then((book)=>{book.toObject()})
+
+    
+}
+
+const updateShoe= (id,value)=>{
+    return Shoe.findByIdAndUpdate(id,value)
+}
+
+const deleteShoe= (id)=>{
+    return Shoe.findByIdAndDelete(id)
 }
 
 export {
-    shoe,getShoe
+    Shoe,
+    getShoe,
+    createShoe,
+    updateShoe,
+    deleteShoe
+
 }
